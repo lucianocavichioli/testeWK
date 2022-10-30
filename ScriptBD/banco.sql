@@ -56,8 +56,7 @@ CREATE TABLE `pedidos` (
   `data_emissao` date NOT NULL,
   `codigo_cliente` int NOT NULL,
   `total` double NOT NULL,
-  PRIMARY KEY (`codigo`),
-  CONSTRAINT `fk_cliente` FOREIGN KEY (`codigo`) REFERENCES `clientes` (`codigo`)
+  PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -85,10 +84,10 @@ CREATE TABLE `pedidos_produtos` (
   `valor_unitario` double NOT NULL,
   `valor_total` double NOT NULL,
   PRIMARY KEY (`codigo`),
-  KEY `fk_produto` (`codigo_produto`),
-  KEY `fk_pedido` (`numero_pedido`),
-  CONSTRAINT `fk_pedido` FOREIGN KEY (`numero_pedido`) REFERENCES `pedidos` (`codigo`),
-  CONSTRAINT `fk_pedido_produto` FOREIGN KEY (`codigo_produto`) REFERENCES `produtos` (`codigo`)
+  KEY `fk_produtos_idx` (`codigo_produto`),
+  KEY `fk_pedidos_idx` (`numero_pedido`),
+  CONSTRAINT `fk_pedidos` FOREIGN KEY (`numero_pedido`) REFERENCES `pedidos` (`codigo`),
+  CONSTRAINT `fk_produtos` FOREIGN KEY (`codigo_produto`) REFERENCES `produtos` (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -122,17 +121,9 @@ CREATE TABLE `produtos` (
 
 LOCK TABLES `produtos` WRITE;
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
-INSERT INTO `produtos` VALUES (84,'Frango frito',5),(85,'Feijão',4),(86,'Arroz',2),(87,'Farinha de Trigo',3),(88,'Fubá',1),(89,'Azeite',6),(90,'Fósforos',5.3),(91,'Ervilha',4.6),(92,'Teclado',8.2),(93,'Mouse',10),(94,'Monitor',10.2),(95,'Fone de Ouvido',100.3),(96,'Copo 200ML',6),(97,'Figurinha da Copa',4),(98,'Caderno 200 folhas',10),(99,'Resma de papel',50),(100,'Borracha',14),(101,'Pincel',8),(102,'Fita desiva',7),(103,'Maça',9),(104,'Banana',8),(105,'Pera',7),(106,'Melão',6),(107,'Cenoura',1),(108,'Alface',1),(109,'Pepino',2),(110,'Ovos',2);
+INSERT INTO `produtos` VALUES (1,'Ovos',2),(2,'Pepino',2),(3,'Alface',1),(4,'Frango frito',5),(5,'Feijão',4),(6,'Arroz',2),(7,'Farinha de Trigo',3),(8,'Fubá',1),(9,'Azeite',6),(10,'Fósforos',5.3),(11,'Ervilha',4.6),(12,'Teclado',8.2),(13,'Mouse',10),(14,'Monitor',10.2),(15,'Fone de Ouvido',100.3),(16,'Copo 200ML',6),(17,'Figurinha da Copa',4),(18,'Caderno 200 folhas',10),(19,'Resma de papel',50),(20,'Borracha',14),(21,'Pincel',8),(22,'Fita desiva',7),(23,'Maça',9),(24,'Banana',8),(25,'Pera',7),(26,'Melão',6),(27,'Cenoura',1);
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'testewk'
---
-
---
--- Dumping routines for database 'testewk'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -143,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-28 16:14:54
+-- Dump completed on 2022-10-30 18:56:07

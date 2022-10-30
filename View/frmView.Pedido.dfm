@@ -84,18 +84,17 @@ object frmViewPedido: TfrmViewPedido
       MaxLength = 5
       NumbersOnly = True
       TabOrder = 0
-      Text = '1'
       OnChange = edtClienteChange
     end
     object edtData: TMaskEdit
       Left = 326
       Top = 11
-      Width = 76
+      Width = 72
       Height = 24
       EditMask = '!99/99/0000;1;_'
       MaxLength = 10
       TabOrder = 1
-      Text = '01/01/2022'
+      Text = '  /  /    '
     end
     object btnGravarPedido: TButton
       Left = 9
@@ -169,7 +168,6 @@ object frmViewPedido: TfrmViewPedido
         MaxLength = 5
         NumbersOnly = True
         TabOrder = 0
-        Text = '1'
         OnExit = edtProdutoExit
       end
       object edtQuantidade: TEdit
@@ -179,7 +177,6 @@ object frmViewPedido: TfrmViewPedido
         Height = 24
         MaxLength = 5
         TabOrder = 1
-        Text = '1'
       end
       object btnInserirProduto: TButton
         Left = 614
@@ -197,7 +194,6 @@ object frmViewPedido: TfrmViewPedido
         Height = 24
         MaxLength = 5
         TabOrder = 2
-        Text = '1'
       end
     end
     object btnCancelarPedido: TButton

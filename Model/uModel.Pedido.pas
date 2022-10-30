@@ -83,9 +83,8 @@ end;
 function TPedido.FindOne(CodigoPedido: Integer): boolean;
 var
   Query: TFDQuery;
-  ItemPedido: TItemPedido;
+  indice: Integer;
 begin
-
   Query := TControllerConexao.getInstance().Conexao.criarQuery();
   try
     Query.Open('SELECT * FROM PEDIDOS WHERE CODIGO = :codigo', [CodigoPedido]);
@@ -103,14 +102,15 @@ begin
       Query.First;
       while not Query.Eof do
       begin
-        ItemPedido := TItemPedido.Create;
-        ItemPedido.Codigo := Query.FieldByName('codigo').AsInteger;
-        ItemPedido.CodigoProduto := Query.FieldByName('codigo_produto').AsInteger;
-        ItemPedido.Quantidade := Query.FieldByName('quantidade').AsFloat;
-        ItemPedido.ValorUnitario := Query.FieldByName('valor_unitario').AsFloat;
-        ItemPedido.ValorTotal := Query.FieldByName('valor_total').AsFloat;
-        FTotalPedido := FTotalPedido + ItemPedido.ValorTotal;
-        Items.Add(ItemPedido);
+        Items.Add(TItemPedido.Create);
+        indice := Items.Count-1;
+        Items[indice].Codigo := Query.FieldByName('codigo').AsInteger;
+        Items[indice].CodigoProduto := Query.FieldByName('codigo_produto')
+          .AsInteger;
+        Items[indice].Quantidade := Query.FieldByName('quantidade').AsFloat;
+        Items[indice].ValorUnitario := Query.FieldByName('valor_unitario').AsFloat;
+        Items[indice].ValorTotal := Query.FieldByName('valor_total').AsFloat;
+        FTotalPedido := FTotalPedido + Items[indice].ValorTotal;
         Query.Next();
       end;
       Result := true;
@@ -118,7 +118,6 @@ begin
     end;
   finally
     Query.Free;
-    ItemPedido.Free;
   end;
   Result := false;
 end;
@@ -147,10 +146,9 @@ begin
     try
       Query.SQL.Clear;
       Query.SQL.Add
-        ('INSERT INTO PEDIDOS(codigo, data_emissao, codigo_cliente, total)');
-      Query.SQL.Add('VALUES(:codigo, :data, :cliente, 0.00);');
+        ('INSERT INTO PEDIDOS( data_emissao, codigo_cliente, total)');
+      Query.SQL.Add('VALUES(:data, :cliente, 0.00);');
       Query.SQL.Add('SELECT LAST_INSERT_ID() as numero_pedido;');
-      Query.ParamByName('codigo').AsInteger := Numero;
       Query.ParamByName('data').AsDate := Data;
       Query.ParamByName('cliente').AsInteger := Cliente.Codigo;
       Query.Open;
@@ -191,6 +189,8 @@ begin
       end;
     end;
     Query.Transaction.Commit;
+    Numero := NumeroPedido;
+    FTotalPedido := TotalPedido;
   finally
     Query.Free;
   end;

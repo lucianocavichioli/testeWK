@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics, uController.Produto,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask,
   Vcl.Buttons, uController.Conexao, Vcl.Grids, uController.Pedido,
-  uController.Cliente;
+  uController.Cliente, uModel.ItemPedido;
 
 type
   TfrmViewPedido = class(TForm)
@@ -115,6 +115,7 @@ var
   DataInicial: TDate;
   Formato: TFormatSettings;
   i: Integer;
+
 begin
   if edtCliente.Text = '' then
     raise Exception.Create('Informe um Código do Cliente.');
@@ -144,15 +145,15 @@ begin
   ControllerPedidos.Pedido.Items.Clear;
   for i := 1 to pred(gridProdutos.RowCount) do
   begin
-    ControllerPedidos.ItemPedido.CodigoProduto :=
+    ControllerPedidos.Pedido.Items.Add(TItemPedido.Create);
+    ControllerPedidos.Pedido.Items[i - 1].CodigoProduto :=
       StrToInt(gridProdutos.Cells[cgCodigo, i]);
-    ControllerPedidos.ItemPedido.Quantidade :=
+    ControllerPedidos.Pedido.Items[i - 1].Quantidade :=
       StrToFloat(gridProdutos.Cells[cgQuantidade, i]);
-    ControllerPedidos.ItemPedido.ValorUnitario :=
+    ControllerPedidos.Pedido.Items[i - 1].ValorUnitario :=
       StrToFloat(gridProdutos.Cells[cgValorUnitario, i]);
-    ControllerPedidos.ItemPedido.ValorTotal :=
+    ControllerPedidos.Pedido.Items[i - 1].ValorTotal :=
       StrToFloat(gridProdutos.Cells[cgValorTotal, i]);
-    ControllerPedidos.Pedido.Items.Add(ControllerPedidos.ItemPedido);
   end;
 
   if not ControllerPedidos.Inserir then
@@ -232,8 +233,7 @@ begin
     inserirNoGrid(ControllerPedidos.Pedido.Items[i].CodigoProduto,
       ControllerProduto.Produto.Descricao, ControllerPedidos.Pedido.Items[i]
       .Quantidade, ControllerPedidos.Pedido.Items[i].ValorUnitario);
-  end;
-  //lblTotalPedido.Caption := FormatFloat('R$ #,##0.00', ControllerPedidos.Pedido.TotalPedido);
+  end; 
 
   ShowMessage('Pedido ' + IntToStr(CodigoPedido) + ' recuperado com sucesso.');
 end;
