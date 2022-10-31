@@ -19,7 +19,7 @@ type
     function criarQuery: TFDQuery;
     function criarQueryTransaction: TFDQuery;
     constructor Create;
-    destructor Destroy;
+    destructor Destroy; override;
   end;
 
 implementation
@@ -68,6 +68,7 @@ destructor TDAOConexao.Destroy;
 begin
   FDPhysMySQLDriverLink.Free;
   FDConnection.Free;
+  inherited;
 end;
 
 function TDAOConexao.getConexao: TFDConnection;

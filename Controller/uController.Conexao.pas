@@ -13,7 +13,7 @@ type
     property Conexao: TDAOConexao read FConexao write FConexao;
     class function getInstance: TControllerConexao;
     constructor Create;
-    destructor Destroy;
+    destructor Destroy; override;
   end;
 
 implementation
@@ -25,7 +25,6 @@ var
 
 constructor TControllerConexao.Create;
 begin
-  inherited;
   FConexao := TDAOConexao.Create;
 end;
 
@@ -50,6 +49,6 @@ instanciaConexao := nil;
 finalization
 
 if instanciaConexao <> nil then
-  instanciaConexao.Free;
+  FreeAndNil(instanciaConexao);
 
 end.

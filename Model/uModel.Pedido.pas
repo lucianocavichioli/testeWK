@@ -40,13 +40,13 @@ implementation
 constructor TPedido.Create;
 begin
   FLastError := '';
-  Cliente := TCliente.Create;
+  FCliente := TCliente.Create;
   FItems := TObjectList<TItemPedido>.Create();
 end;
 
 destructor TPedido.Destroy;
 begin
-  Cliente.Free;
+  FCliente.Free;
   FItems.Free;
   inherited;
 end;
@@ -92,7 +92,6 @@ begin
     begin
       Numero := Query.FieldByName('codigo').AsInteger;
       Data := Query.FieldByName('data_emissao').AsDateTime;
-      Cliente := TCliente.Create;
       Cliente.FindOne(Query.FieldByName('codigo_cliente').AsInteger);
 
       FTotalPedido := 0.00;
@@ -192,6 +191,7 @@ begin
     Numero := NumeroPedido;
     FTotalPedido := TotalPedido;
   finally
+    Query.Transaction.Free;
     Query.Free;
   end;
   Result := true;
