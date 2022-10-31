@@ -16,26 +16,20 @@ File_13=TSourceModule,'C:\RadStudio\Projetos\BIPH\Servidor\WebServiceSAT\TConexa
 File_14=TSourceModule,'C:\RadStudio\Projetos\BIPH\Servidor\WebServiceSAT\frmPrincipalSat1.cpp',0,1,94,47,99,0,0,,
 
 [Modules]
-Module0=C:\RadStudio\Projetos\TesteWK\View\frmView.Pedido.pas
-Module1=C:\RadStudio\Projetos\TesteWK\Model\uModel.Pedido.pas
-Module2=C:\RadStudio\Projetos\TesteWK\Controller\uController.Produto.pas
-Module3=C:\RadStudio\Projetos\TesteWK\Controller\uController.Conexao.pas
-Module4=C:\RadStudio\Projetos\TesteWK\Controller\uController.Pedido.pas
-Module5=C:\RadStudio\Projetos\TesteWK\Model\uModel.Cliente.pas
+Module0=C:\RadStudio\Projetos\TesteWK\Model\uModel.Pedido.pas
+Module1=C:\RadStudio\Projetos\TesteWK\View\frmView.Pedido.pas
+Module2=C:\RadStudio\Projetos\TesteWK\Controller\uController.Pedido.pas
+Module3=C:\RadStudio\Projetos\TesteWK\Model\uModel.Cliente.pas
+Module4=C:\RadStudio\Projetos\TesteWK\Controller\uController.Produto.pas
+Module5=C:\RadStudio\Projetos\TesteWK\Controller\uController.Conexao.pas
 Module6=C:\RadStudio\Projetos\TesteWK\Model\uModel.Produto.pas
 Count=7
 EditWindowCount=1
 
-[C:\RadStudio\Projetos\TesteWK\View\frmView.Pedido.pas]
-ModuleType=TSourceModule
-
 [C:\RadStudio\Projetos\TesteWK\Model\uModel.Pedido.pas]
 ModuleType=TSourceModule
 
-[C:\RadStudio\Projetos\TesteWK\Controller\uController.Produto.pas]
-ModuleType=TSourceModule
-
-[C:\RadStudio\Projetos\TesteWK\Controller\uController.Conexao.pas]
+[C:\RadStudio\Projetos\TesteWK\View\frmView.Pedido.pas]
 ModuleType=TSourceModule
 
 [C:\RadStudio\Projetos\TesteWK\Controller\uController.Pedido.pas]
@@ -44,12 +38,18 @@ ModuleType=TSourceModule
 [C:\RadStudio\Projetos\TesteWK\Model\uModel.Cliente.pas]
 ModuleType=TSourceModule
 
+[C:\RadStudio\Projetos\TesteWK\Controller\uController.Produto.pas]
+ModuleType=TSourceModule
+
+[C:\RadStudio\Projetos\TesteWK\Controller\uController.Conexao.pas]
+ModuleType=TSourceModule
+
 [C:\RadStudio\Projetos\TesteWK\Model\uModel.Produto.pas]
 ModuleType=TSourceModule
 
 [EditWindow0]
 ViewCount=7
-CurrentEditView=C:\RadStudio\Projetos\TesteWK\View\frmView.Pedido.pas
+CurrentEditView=C:\RadStudio\Projetos\TesteWK\Model\uModel.Pedido.pas
 View0=0
 View1=1
 View2=2
@@ -75,7 +75,7 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=0000080001010100000009000000446F636B5369746533F90F0000000000000168070000000000000100000000651C00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=0000080001010100000009000000446F636B5369746533F90F0000000000000168070000000000000100000002651C00000000000002000000002A0D00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
 RightPanelData=00000800010100000000F90F00000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000651C000009000000446F636B5369746534FFFFFFFF
@@ -100,9 +100,9 @@ EditViewName=C:\RadStudio\Projetos\TesteWK\Model\uModel.Produto.pas
 [View1]
 CustomEditViewType=TEditView
 Module=C:\RadStudio\Projetos\TesteWK\Model\uModel.Pedido.pas
-CursorX=35
-CursorY=110
-TopLine=139
+CursorX=34
+CursorY=82
+TopLine=61
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -133,9 +133,9 @@ EditViewName=C:\RadStudio\Projetos\TesteWK\Controller\uController.Produto.pas
 [View4]
 CustomEditViewType=TEditView
 Module=C:\RadStudio\Projetos\TesteWK\Controller\uController.Pedido.pas
-CursorX=18
-CursorY=12
-TopLine=7
+CursorX=5
+CursorY=46
+TopLine=36
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -155,12 +155,12 @@ EditViewName=C:\RadStudio\Projetos\TesteWK\Model\uModel.Cliente.pas
 [View6]
 CustomEditViewType=TEditView
 Module=C:\RadStudio\Projetos\TesteWK\View\frmView.Pedido.pas
-CursorX=52
-CursorY=162
-TopLine=135
+CursorX=40
+CursorY=153
+TopLine=137
 LeftCol=1
 Elisions=
-Bookmarks=
+Bookmarks={5,396,36}
 EditViewName=C:\RadStudio\Projetos\TesteWK\View\frmView.Pedido.pas
 
 [UndockedDesigner]
@@ -317,17 +317,17 @@ StayOnTop=0
 [ClassBrowserTool]
 PercentageSizes=1
 Create=1
-Visible=0
+Visible=1
 Docked=1
 State=0
-Left=-8
-Top=-91
-Width=1849
-Height=3144
+Left=0
+Top=0
+Width=1896
+Height=7135
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1849
-ClientHeight=3144
+ClientWidth=1896
+ClientHeight=7135
 TBDockHeight=3144
 LRDockWidth=1849
 Dockable=1
@@ -385,7 +385,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=7375
-TBDockHeight=9010
+TBDockHeight=7375
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
@@ -393,8 +393,8 @@ SplitPos=111
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=Caption,
-ExpandedItems=Anchors=0,Constraints=0,BevelEdges=0,Font=0,LiveBindings=0,"LiveBindings Designer=0",Margins=0,StyleElements=0,Touch=0,ImageMargins=0
+SelectedItem=Align,Action
+ExpandedItems=Anchors=0,Constraints=0,LiveBindings=0,Font=0,ImageMargins=0,"LiveBindings Designer=0",Margins=0,StyleElements=0,Padding=0,Touch=0,GlassFrame=0,HorzScrollBar=0,BevelEdges=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -788,11 +788,11 @@ State=0
 Left=0
 Top=0
 Width=1896
-Height=9010
+Height=7135
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=9010
+ClientHeight=7135
 TBDockHeight=3673
 LRDockWidth=1896
 Dockable=1
@@ -960,12 +960,12 @@ State=0
 Left=8
 Top=8
 Width=1896
-Height=9010
+Height=7375
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=9010
-TBDockHeight=9010
+ClientHeight=7375
+TBDockHeight=7375
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0

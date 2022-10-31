@@ -221,7 +221,7 @@ end;
 procedure TfrmViewPedido.btnRecuperarPedidoClick(Sender: TObject);
 var
   CodigoPedido: Integer;
-  i: Integer;
+  ItemPedido: TItemPedido;
 begin
   CodigoPedido := StrToIntDef(InputBox('Recuperar Pedido',
     'Informe o número do pedido que deseja recuperar', ''), - 1);
@@ -238,12 +238,11 @@ begin
   edtCliente.Text := IntToStr(ControllerPedidos.Pedido.Cliente.Codigo);
   edtData.Text := DateToStr(ControllerPedidos.Pedido.data);
 
-  for i := 0 to pred(ControllerPedidos.Pedido.Items.Count) do
+  for ItemPedido in ControllerPedidos.Pedido.Items do
   begin
-    ControllerProduto.FindOne(ControllerPedidos.Pedido.Items[i].CodigoProduto);
-    inserirNoGrid(ControllerPedidos.Pedido.Items[i].CodigoProduto,
-      ControllerProduto.Produto.Descricao, ControllerPedidos.Pedido.Items[i]
-      .Quantidade, ControllerPedidos.Pedido.Items[i].ValorUnitario);
+    ControllerProduto.FindOne(ItemPedido.CodigoProduto);
+    inserirNoGrid(ItemPedido.CodigoProduto, ControllerProduto.Produto.Descricao,
+      ItemPedido.Quantidade, ItemPedido.ValorUnitario);
   end;
 
   ShowMessage('Pedido ' + IntToStr(CodigoPedido) + ' recuperado com sucesso.');

@@ -55,8 +55,8 @@ end;
 function TPedido.Atualizar: boolean;
 var
   Query: TFDQuery;
-  i: Integer;
   TotalPedido: double;
+  ItemPedido: TItemPedido;
 begin
   Result := false;
   Query := TControllerConexao.getInstance().Conexao.criarQueryTransaction();
@@ -74,20 +74,22 @@ begin
       Query.SQL.Add
         ('VALUES(:numero_pedido, :codigo_produto, :quantidade, :valor_unitario, :valor_total);');
       TotalPedido := 0.00;
-      for i := 0 to pred(Items.Count) do
+      for ItemPedido in Items do
       begin
-        TotalPedido := TotalPedido + Items[i].ValorTotal;
+        TotalPedido := TotalPedido + ItemPedido.ValorTotal;
         Query.Unprepare;
         Query.ParamByName('numero_pedido').AsInteger := Numero;
-        Query.ParamByName('codigo_produto').AsInteger := Items[i].CodigoProduto;
-        Query.ParamByName('quantidade').AsFloat := Items[i].Quantidade;
-        Query.ParamByName('valor_unitario').AsFloat := Items[i].ValorUnitario;
-        Query.ParamByName('valor_total').AsFloat := Items[i].ValorTotal;
+        Query.ParamByName('codigo_produto').AsInteger :=
+          ItemPedido.CodigoProduto;
+        Query.ParamByName('quantidade').AsFloat := ItemPedido.Quantidade;
+        Query.ParamByName('valor_unitario').AsFloat := ItemPedido.ValorUnitario;
+        Query.ParamByName('valor_total').AsFloat := ItemPedido.ValorTotal;
         Query.ExecSQL;
       end;
 
       Query.SQL.Clear;
-      Query.SQL.Add('UPDATE PEDIDOS set data_emissao = :data, codigo_cliente = :cliente, total = :total');
+      Query.SQL.Add
+        ('UPDATE PEDIDOS set data_emissao = :data, codigo_cliente = :cliente, total = :total');
       Query.SQL.Add('WHERE codigo = :codigo;');
       Query.ParamByName('data').AsDate := Data;
       Query.ParamByName('cliente').AsInteger := Cliente.Codigo;
@@ -199,7 +201,7 @@ function TPedido.Inserir: boolean;
 var
   Query: TFDQuery;
   NumeroPedido: Integer;
-  i: Integer;
+  ItemPedido: TItemPedido;
   TotalPedido: double;
 begin
   Result := false;
@@ -224,15 +226,15 @@ begin
       Query.SQL.Add
         ('VALUES(:numero_pedido, :codigo_produto, :quantidade, :valor_unitario, :valor_total)');
 
-      for i := 0 to pred(Items.Count) do
+      for ItemPedido in Items do
       begin
-        TotalPedido := TotalPedido + Items[i].ValorTotal;
+        TotalPedido := TotalPedido + ItemPedido.ValorTotal;
         Query.Unprepare;
         Query.ParamByName('numero_pedido').AsInteger := NumeroPedido;
-        Query.ParamByName('codigo_produto').AsInteger := Items[i].CodigoProduto;
-        Query.ParamByName('quantidade').AsFloat := Items[i].Quantidade;
-        Query.ParamByName('valor_unitario').AsFloat := Items[i].ValorUnitario;
-        Query.ParamByName('valor_total').AsFloat := Items[i].ValorTotal;
+        Query.ParamByName('codigo_produto').AsInteger := ItemPedido.CodigoProduto;
+        Query.ParamByName('quantidade').AsFloat := ItemPedido.Quantidade;
+        Query.ParamByName('valor_unitario').AsFloat := ItemPedido.ValorUnitario;
+        Query.ParamByName('valor_total').AsFloat := ItemPedido.ValorTotal;
         Query.ExecSQL;
       end;
 
