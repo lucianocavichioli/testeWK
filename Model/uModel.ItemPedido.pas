@@ -29,9 +29,6 @@ implementation
 
 {TItemPedido}
 
-
-{ TItemPedido }
-
 constructor TItemPedido.Create;
 begin
 

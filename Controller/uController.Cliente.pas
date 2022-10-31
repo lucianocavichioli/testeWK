@@ -17,7 +17,7 @@ type
 
 implementation
 
-{TControllerPedido}
+{TControllerCliente}
 
 constructor TControllerCliente.Create;
 begin

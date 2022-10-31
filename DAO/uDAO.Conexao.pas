@@ -24,10 +24,10 @@ type
 
 implementation
 
+{TDAOConexao}
+
 var
   instanciaConexao: TDAOConexao;
-
-  {TDAOConexao}
 
 constructor TDAOConexao.Create;
 begin
@@ -62,7 +62,6 @@ begin
   Query.Transaction.Connection := FDConnection;
   Result := Query;
 end;
-
 
 destructor TDAOConexao.Destroy;
 begin

@@ -75,6 +75,8 @@ begin
     end;
     Query.Transaction.Commit;
   finally
+    Query.Transaction.Free;
+    Query.Transaction := nil;
     Query.Free;
   end;
   Result := true;
@@ -102,12 +104,13 @@ begin
       while not Query.Eof do
       begin
         Items.Add(TItemPedido.Create);
-        indice := Items.Count-1;
+        indice := Items.Count - 1;
         Items[indice].Codigo := Query.FieldByName('codigo').AsInteger;
         Items[indice].CodigoProduto := Query.FieldByName('codigo_produto')
           .AsInteger;
         Items[indice].Quantidade := Query.FieldByName('quantidade').AsFloat;
-        Items[indice].ValorUnitario := Query.FieldByName('valor_unitario').AsFloat;
+        Items[indice].ValorUnitario :=
+          Query.FieldByName('valor_unitario').AsFloat;
         Items[indice].ValorTotal := Query.FieldByName('valor_total').AsFloat;
         FTotalPedido := FTotalPedido + Items[indice].ValorTotal;
         Query.Next();
@@ -192,6 +195,7 @@ begin
     FTotalPedido := TotalPedido;
   finally
     Query.Transaction.Free;
+    Query.Transaction := nil;
     Query.Free;
   end;
   Result := true;

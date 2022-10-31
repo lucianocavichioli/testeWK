@@ -46,17 +46,17 @@ end;
 
 function TControllerPedido.FindOne(CodigoPedido: integer): boolean;
 begin
-   Result := FPedido.FindOne(CodigoPedido);
+  result := FPedido.FindOne(CodigoPedido);
 end;
 
 function TControllerPedido.getLastError: string;
 begin
-  Result := FPedido.getLastError;
+  result := FPedido.getLastError;
 end;
 
 function TControllerPedido.Inserir: boolean;
 begin
-  Result := FPedido.Inserir;
+  result := FPedido.Inserir;
 end;
 
 end.

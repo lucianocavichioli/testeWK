@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics, uController.Produto,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask,
   Vcl.Buttons, uController.Conexao, Vcl.Grids, uController.Pedido,
-  uController.Cliente, uModel.ItemPedido;
+  uModel.ItemPedido;
 
 type
   TfrmViewPedido = class(TForm)
@@ -47,7 +47,6 @@ type
   private
     ControllerPedidos: TControllerPedido;
     ControllerProduto: TControllerProduto;
-    ControllerCliente: TControllerCliente;
     ValorTotalPedido: double;
     ValorInicialProduto: double;
     procedure limparGrid;
@@ -79,14 +78,12 @@ begin
   limparGrid;
   ControllerPedidos := TControllerPedido.Create;
   ControllerProduto := TControllerProduto.Create;
-  ControllerCliente := TControllerCliente.Create;
 end;
 
 procedure TfrmViewPedido.FormDestroy(Sender: TObject);
 begin
   ControllerPedidos.Free;
   ControllerProduto.Free;
-  ControllerCliente.Free;
 end;
 
 procedure TfrmViewPedido.btnCancelarPedidoClick(Sender: TObject);
@@ -115,7 +112,6 @@ var
   DataInicial: TDate;
   Formato: TFormatSettings;
   i: Integer;
-
 begin
   if edtCliente.Text = '' then
     raise Exception.Create('Informe um Código do Cliente.');
@@ -136,12 +132,10 @@ begin
     raise Exception.Create
       ('Informe uma Data de Emissão posterior a 31/12/1999.');
 
-  if not ControllerCliente.FindOne(CodigoCliente) then
+  if not ControllerPedidos.Pedido.Cliente.FindOne(CodigoCliente) then
     raise Exception.Create('Código de Cliente não encontrado.');
 
   ControllerPedidos.Pedido.data := DataEmissao;
-  ControllerPedidos.Pedido.Cliente := ControllerCliente.Cliente;
-
   ControllerPedidos.Pedido.Items.Clear;
   for i := 1 to pred(gridProdutos.RowCount) do
   begin
@@ -233,7 +227,7 @@ begin
     inserirNoGrid(ControllerPedidos.Pedido.Items[i].CodigoProduto,
       ControllerProduto.Produto.Descricao, ControllerPedidos.Pedido.Items[i]
       .Quantidade, ControllerPedidos.Pedido.Items[i].ValorUnitario);
-  end; 
+  end;
 
   ShowMessage('Pedido ' + IntToStr(CodigoPedido) + ' recuperado com sucesso.');
 end;

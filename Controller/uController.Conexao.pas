@@ -18,10 +18,10 @@ type
 
 implementation
 
+{TControllerConexao}
+
 var
   instanciaConexao: TControllerConexao;
-
-  {TControllerConexao}
 
 constructor TControllerConexao.Create;
 begin

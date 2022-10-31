@@ -17,7 +17,7 @@ type
 
 implementation
 
-{TControllerPedido}
+{TControllerProduto}
 
 constructor TControllerProduto.Create;
 begin
