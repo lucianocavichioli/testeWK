@@ -3,7 +3,7 @@ object frmViewPedido: TfrmViewPedido
   Top = 0
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  ClientHeight = 385
+  ClientHeight = 410
   ClientWidth = 744
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -30,11 +30,11 @@ object frmViewPedido: TfrmViewPedido
     Caption = 'Manuten'#231#227'o de Pedidos'
     TabOrder = 0
   end
-  object Panel2: TPanel
+  object PainelPedido: TPanel
     Left = 0
-    Top = 41
+    Top = 108
     Width = 744
-    Height = 344
+    Height = 302
     Align = alClient
     BorderWidth = 5
     BorderStyle = bsSingle
@@ -54,15 +54,15 @@ object frmViewPedido: TfrmViewPedido
       Caption = 'Data Emiss'#227'o'
     end
     object Label4: TLabel
-      Left = 519
-      Top = 316
+      Left = 518
+      Top = 268
       Width = 128
       Height = 16
       Caption = 'Valor Total do Pedido:'
     end
     object lblTotalPedido: TLabel
-      Left = 653
-      Top = 316
+      Left = 652
+      Top = 268
       Width = 68
       Height = 16
       Alignment = taRightJustify
@@ -84,7 +84,6 @@ object frmViewPedido: TfrmViewPedido
       MaxLength = 5
       NumbersOnly = True
       TabOrder = 0
-      OnChange = edtClienteChange
     end
     object edtData: TMaskEdit
       Left = 326
@@ -99,7 +98,7 @@ object frmViewPedido: TfrmViewPedido
     object btnGravarPedido: TButton
       Left = 9
       Top = 256
-      Width = 113
+      Width = 128
       Height = 25
       Caption = 'Gravar Pedido'
       TabOrder = 4
@@ -196,23 +195,52 @@ object frmViewPedido: TfrmViewPedido
         TabOrder = 2
       end
     end
+    object btnCancelar: TButton
+      Left = 153
+      Top = 256
+      Width = 128
+      Height = 25
+      Caption = 'Cancelar'
+      TabOrder = 5
+      OnClick = btnCancelarClick
+    end
+  end
+  object Panel3: TPanel
+    Left = 0
+    Top = 41
+    Width = 744
+    Height = 67
+    Align = alTop
+    Alignment = taLeftJustify
+    BorderWidth = 5
+    BorderStyle = bsSingle
+    TabOrder = 2
     object btnCancelarPedido: TButton
-      Left = 9
-      Top = 307
+      Left = 222
+      Top = 19
       Width = 144
       Height = 25
-      Caption = 'Cancelar um Pedido'
-      TabOrder = 5
+      Caption = 'Cancelar Pedido'
+      TabOrder = 1
       OnClick = btnCancelarPedidoClick
     end
     object btnRecuperarPedido: TButton
-      Left = 169
-      Top = 307
+      Left = 422
+      Top = 19
       Width = 144
       Height = 25
-      Caption = 'Recuperar um Pedido'
-      TabOrder = 6
+      Caption = 'Recuperar Pedido'
+      TabOrder = 2
       OnClick = btnRecuperarPedidoClick
+    end
+    object btnInserirPedido: TButton
+      Left = 17
+      Top = 19
+      Width = 144
+      Height = 25
+      Caption = 'Inserir Pedido'
+      TabOrder = 0
+      OnClick = btnInserirPedidoClick
     end
   end
 end

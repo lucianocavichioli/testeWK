@@ -27,6 +27,7 @@ type
     property TotalPedido: double read getTotalPedido;
     property Items: TObjectList<TItemPedido> read FItems write FItems;
 
+    function Atualizar: boolean;
     function Inserir: boolean;
     function Excluir: boolean;
     function getLastError: string;
@@ -49,6 +50,66 @@ begin
   FCliente.Free;
   FItems.Free;
   inherited;
+end;
+
+function TPedido.Atualizar: boolean;
+var
+  Query: TFDQuery;
+  i: Integer;
+  TotalPedido: double;
+begin
+  Result := false;
+  Query := TControllerConexao.getInstance().Conexao.criarQueryTransaction();
+  try
+    Query.Transaction.StartTransaction;
+    try
+      Query.SQL.Add('DELETE FROM PEDIDOS_PRODUTOS');
+      Query.SQL.Add('WHERE numero_pedido = :numero;');
+      Query.ParamByName('numero').AsInteger := Numero;
+      Query.ExecSQL;
+
+      Query.SQL.Clear;
+      Query.SQL.Add
+        ('INSERT INTO PEDIDOS_PRODUTOS(numero_pedido, codigo_produto, quantidade, valor_unitario, valor_total)');
+      Query.SQL.Add
+        ('VALUES(:numero_pedido, :codigo_produto, :quantidade, :valor_unitario, :valor_total);');
+      TotalPedido := 0.00;
+      for i := 0 to pred(Items.Count) do
+      begin
+        TotalPedido := TotalPedido + Items[i].ValorTotal;
+        Query.Unprepare;
+        Query.ParamByName('numero_pedido').AsInteger := Numero;
+        Query.ParamByName('codigo_produto').AsInteger := Items[i].CodigoProduto;
+        Query.ParamByName('quantidade').AsFloat := Items[i].Quantidade;
+        Query.ParamByName('valor_unitario').AsFloat := Items[i].ValorUnitario;
+        Query.ParamByName('valor_total').AsFloat := Items[i].ValorTotal;
+        Query.ExecSQL;
+      end;
+
+      Query.SQL.Clear;
+      Query.SQL.Add('UPDATE PEDIDOS set data_emissao = :data, codigo_cliente = :cliente, total = :total');
+      Query.SQL.Add('WHERE codigo = :codigo;');
+      Query.ParamByName('data').AsDate := Data;
+      Query.ParamByName('cliente').AsInteger := Cliente.Codigo;
+      Query.ParamByName('total').AsFloat := TotalPedido;
+      Query.ParamByName('codigo').AsInteger := Numero;
+      Query.ExecSQL;
+    except
+      on E: EMySQLNativeException do
+      begin
+        Query.Transaction.Rollback;
+        FLastError := 'Erro atualizando pedido:' + E.Message;
+        exit;
+      end;
+    end;
+    Query.Transaction.Commit;
+    FTotalPedido := TotalPedido;
+  finally
+    Query.Transaction.Free;
+    Query.Transaction := nil;
+    Query.Free;
+  end;
+  Result := true;
 end;
 
 function TPedido.Excluir: boolean;
@@ -147,8 +208,7 @@ begin
     Query.Transaction.StartTransaction;
     try
       Query.SQL.Clear;
-      Query.SQL.Add
-        ('INSERT INTO PEDIDOS( data_emissao, codigo_cliente, total)');
+      Query.SQL.Add('INSERT INTO PEDIDOS(data_emissao, codigo_cliente, total)');
       Query.SQL.Add('VALUES(:data, :cliente, 0.00);');
       Query.SQL.Add('SELECT LAST_INSERT_ID() as numero_pedido;');
       Query.ParamByName('data').AsDate := Data;

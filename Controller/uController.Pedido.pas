@@ -18,6 +18,7 @@ type
 
     function Inserir: boolean;
     function Excluir: boolean;
+    function Atualizar: boolean;
     function getLastError: string;
     function FindOne(CodigoPedido: integer): boolean;
   end;
@@ -37,6 +38,11 @@ begin
   FPedido.Free;
   FItemPedido.Free;
   inherited;
+end;
+
+function TControllerPedido.Atualizar: boolean;
+begin
+  result := FPedido.Atualizar;
 end;
 
 function TControllerPedido.Excluir: boolean;

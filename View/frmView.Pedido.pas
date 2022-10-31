@@ -10,9 +10,11 @@ uses
   uModel.ItemPedido;
 
 type
+  TipoEStado = (teBrowser, teInsert, teEdit);
+
   TfrmViewPedido = class(TForm)
     Panel1: TPanel;
-    Panel2: TPanel;
+    PainelPedido: TPanel;
     edtCliente: TEdit;
     Label1: TLabel;
     Label2: TLabel;
@@ -30,12 +32,14 @@ type
     Label7: TLabel;
     Label5: TLabel;
     edtValorUnitario: TEdit;
+    Panel3: TPanel;
     btnCancelarPedido: TButton;
     btnRecuperarPedido: TButton;
+    btnInserirPedido: TButton;
+    btnCancelar: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnGravarPedidoClick(Sender: TObject);
     procedure btnInserirProdutoClick(Sender: TObject);
-    procedure edtClienteChange(Sender: TObject);
     procedure gridProdutosKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure gridProdutosDrawCell(Sender: TObject; ACol, ARow: Integer;
@@ -44,17 +48,22 @@ type
     procedure edtProdutoExit(Sender: TObject);
     procedure btnCancelarPedidoClick(Sender: TObject);
     procedure btnRecuperarPedidoClick(Sender: TObject);
+    procedure btnInserirPedidoClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
   private
     ControllerPedidos: TControllerPedido;
     ControllerProduto: TControllerProduto;
     ValorTotalPedido: double;
     ValorInicialProduto: double;
-    procedure limparGrid;
+    EstadoAtual: TipoEStado;
+    procedure limparDados;
     procedure inserirNoGrid(Codigo: Integer; Descricao: String;
       Quantidade, ValorUnitario: double);
     procedure editarProduto;
     procedure btnInserirProdutoAtualizar(Sender: TObject);
     procedure excluirProduto;
+    procedure HabilitarPainel(Habilitar: boolean);
+    procedure TrocarEstado(Estado: TipoEStado);
   public
     {Public declarations}
   end;
@@ -75,7 +84,7 @@ implementation
 
 procedure TfrmViewPedido.FormCreate(Sender: TObject);
 begin
-  limparGrid;
+  TrocarEstado(teBrowser);
   ControllerPedidos := TControllerPedido.Create;
   ControllerProduto := TControllerProduto.Create;
 end;
@@ -84,6 +93,11 @@ procedure TfrmViewPedido.FormDestroy(Sender: TObject);
 begin
   ControllerPedidos.Free;
   ControllerProduto.Free;
+end;
+
+procedure TfrmViewPedido.btnCancelarClick(Sender: TObject);
+begin
+  TrocarEstado(teBrowser);
 end;
 
 procedure TfrmViewPedido.btnCancelarPedidoClick(Sender: TObject);
@@ -150,17 +164,20 @@ begin
       StrToFloat(gridProdutos.Cells[cgValorTotal, i]);
   end;
 
-  if not ControllerPedidos.Inserir then
-    raise Exception.Create(ControllerPedidos.getLastError());
+  if EstadoAtual = teInsert then
+  begin
+    if not ControllerPedidos.Inserir then
+      raise Exception.Create(ControllerPedidos.getLastError());
+  end
+  else
+  begin
+    if not ControllerPedidos.Atualizar then
+      raise Exception.Create(ControllerPedidos.getLastError());
+  end;
 
-  edtCliente.Text := '';
-  edtCliente.SetFocus;
-  edtData.Text := '';
-  limparGrid;
-  btnCancelarPedido.Enabled := true;
-  btnRecuperarPedido.Enabled := true;
   ShowMessage('Pedido ' + IntToStr(ControllerPedidos.Pedido.Numero) +
     ' gravado com sucesso.');
+  TrocarEstado(teBrowser);
 end;
 
 procedure TfrmViewPedido.btnInserirProdutoClick(Sender: TObject);
@@ -216,10 +233,10 @@ begin
     raise Exception.Create('O pedido de número ' + IntToStr(CodigoPedido) +
       ' não existe.');
 
+  TrocarEstado(teEdit);
+
   edtCliente.Text := IntToStr(ControllerPedidos.Pedido.Cliente.Codigo);
   edtData.Text := DateToStr(ControllerPedidos.Pedido.data);
-
-  limparGrid;
 
   for i := 0 to pred(ControllerPedidos.Pedido.Items.Count) do
   begin
@@ -230,6 +247,12 @@ begin
   end;
 
   ShowMessage('Pedido ' + IntToStr(CodigoPedido) + ' recuperado com sucesso.');
+
+end;
+
+procedure TfrmViewPedido.btnInserirPedidoClick(Sender: TObject);
+begin
+  TrocarEstado(teInsert);
 end;
 
 procedure TfrmViewPedido.btnInserirProdutoAtualizar(Sender: TObject);
@@ -270,12 +293,6 @@ begin
   btnGravarPedido.Enabled := true;
   gridProdutos.Enabled := true;
   gridProdutos.SetFocus;
-end;
-
-procedure TfrmViewPedido.edtClienteChange(Sender: TObject);
-begin
-  btnCancelarPedido.Enabled := edtCliente.Text = '';
-  btnRecuperarPedido.Enabled := btnCancelarPedido.Enabled;
 end;
 
 procedure TfrmViewPedido.edtProdutoExit(Sender: TObject);
@@ -349,11 +366,51 @@ begin
     excluirProduto;
 end;
 
-procedure TfrmViewPedido.limparGrid;
+procedure TfrmViewPedido.HabilitarPainel(Habilitar: boolean);
+var
+  i: Integer;
+begin
+  PainelPedido.Enabled := Habilitar;
+  for i := 0 to pred(PainelPedido.ControlCount) do
+    if PainelPedido.Controls[i] is TControl then
+      (PainelPedido.Controls[i] as TControl).Enabled := Habilitar;
+  for i := 0 to pred(gbProduto.ControlCount) do
+    if gbProduto.Controls[i] is TControl then
+      (gbProduto.Controls[i] as TControl).Enabled := Habilitar;
+  if Habilitar then
+    gbProduto.Caption := 'Novo Produto'
+  else
+    gbProduto.Caption := '';
+end;
+
+procedure TfrmViewPedido.limparDados;
 begin
   gridProdutos.RowCount := 1;
   gridProdutos.Rows[0].Clear;
   ValorTotalPedido := 0.00;
+  edtCliente.Text := '';
+  edtData.Text := '';
+  edtProduto.Text := '';
+  edtQuantidade.Text := '';
+  edtValorUnitario.Text := '';
+  lblTotalPedido.Caption := '0,00';
+end;
+
+procedure TfrmViewPedido.TrocarEstado(Estado: TipoEStado);
+begin
+  limparDados();
+  HabilitarPainel(true);
+  btnInserirPedido.Enabled := false;
+  btnCancelarPedido.Enabled := false;
+  btnRecuperarPedido.Enabled := false;
+  if Estado = teBrowser then
+  begin
+    HabilitarPainel(false);
+    btnInserirPedido.Enabled := true;
+    btnCancelarPedido.Enabled := true;
+    btnRecuperarPedido.Enabled := true;
+  end;
+  EstadoAtual := Estado;
 end;
 
 procedure TfrmViewPedido.editarProduto;
@@ -392,7 +449,9 @@ begin
 
   if gridProdutos.RowCount = 2 then
   begin
-    limparGrid;
+    gridProdutos.RowCount := 1;
+    gridProdutos.Rows[0].Clear;
+    ValorTotalPedido := 0.00;
     exit;
   end;
   ValorTotalProduto := StrToFloat(gridProdutos.Cells[cgValorTotal,
