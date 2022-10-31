@@ -7,13 +7,12 @@ uses
   System.Classes, Vcl.Graphics, uController.Produto,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask,
   Vcl.Buttons, uController.Conexao, Vcl.Grids, uController.Pedido,
-  uModel.ItemPedido;
+  uModel.ItemPedido, Vcl.ComCtrls;
 
 type
   TipoEStado = (teBrowser, teInsert, teEdit);
 
   TfrmViewPedido = class(TForm)
-    Panel1: TPanel;
     PainelPedido: TPanel;
     edtCliente: TEdit;
     Label1: TLabel;
@@ -21,8 +20,6 @@ type
     edtData: TMaskEdit;
     btnGravarPedido: TButton;
     gridProdutos: TStringGrid;
-    Label4: TLabel;
-    lblTotalPedido: TLabel;
     gbProduto: TGroupBox;
     edtProduto: TEdit;
     Label3: TLabel;
@@ -32,11 +29,12 @@ type
     Label7: TLabel;
     Label5: TLabel;
     edtValorUnitario: TEdit;
-    Panel3: TPanel;
+    btnCancelar: TButton;
+    Rodape: TStatusBar;
+    Panel1: TPanel;
+    btnInserirPedido: TButton;
     btnCancelarPedido: TButton;
     btnRecuperarPedido: TButton;
-    btnInserirPedido: TButton;
-    btnCancelar: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnGravarPedidoClick(Sender: TObject);
     procedure btnInserirProdutoClick(Sender: TObject);
@@ -279,7 +277,7 @@ begin
 
   ValorTotalPedido := ValorTotalPedido - ValorInicialProduto + Quantidade *
     ValorUnitario;
-  lblTotalPedido.Caption := FormatFloat('R$ #,##0.00', ValorTotalPedido);
+  Rodape.Panels[0].Text := FormatFloat('Valor Total do Pedido: R$ #,##0.00', ValorTotalPedido);
 
   btnInserirProduto.Caption := 'Inserir Produto';
   btnInserirProduto.OnClick := btnInserirProdutoClick;
@@ -332,7 +330,7 @@ begin
   gridProdutos.Cells[cgValorTotal, novaLinha] :=
     FloatToStr(Quantidade * ValorUnitario);
   ValorTotalPedido := ValorTotalPedido + Quantidade * ValorUnitario;
-  lblTotalPedido.Caption := FormatFloat('R$ #,##0.00', ValorTotalPedido);
+  Rodape.Panels[0].Text := FormatFloat('Valor Total do Pedido: R$ #,##0.00', ValorTotalPedido);
 end;
 
 procedure TfrmViewPedido.gridProdutosDrawCell(Sender: TObject;
@@ -392,7 +390,7 @@ begin
   edtProduto.Text := '';
   edtQuantidade.Text := '';
   edtValorUnitario.Text := '';
-  lblTotalPedido.Caption := '0,00';
+  Rodape.Panels[0].Text := '0,00';
 end;
 
 procedure TfrmViewPedido.TrocarEstado(Estado: TipoEStado);
@@ -456,7 +454,7 @@ begin
   ValorTotalProduto := StrToFloat(gridProdutos.Cells[cgValorTotal,
     gridProdutos.Row]);
   ValorTotalPedido := ValorTotalPedido - ValorTotalProduto;
-  lblTotalPedido.Caption := FormatFloat('R$ #,##0.00', ValorTotalPedido);
+  Rodape.Panels[0].Text := FormatFloat('Valor Total do Pedido: R$ #,##0.00', ValorTotalPedido);
 
   for i := gridProdutos.Row to gridProdutos.RowCount - 2 do
     gridProdutos.Rows[i] := gridProdutos.Rows[i + 1];

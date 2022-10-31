@@ -1,9 +1,14 @@
 object frmViewPedido: TfrmViewPedido
   Left = 0
   Top = 0
+  Margins.Left = 5
+  Margins.Top = 5
+  Margins.Right = 5
+  Margins.Bottom = 5
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  ClientHeight = 410
+  Caption = 'Manuten'#231#227'o de Pedidos'
+  ClientHeight = 421
   ClientWidth = 744
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,27 +23,25 @@ object frmViewPedido: TfrmViewPedido
   OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 16
-  object Panel1: TPanel
-    Left = 0
-    Top = 0
-    Width = 744
-    Height = 41
-    Align = alTop
-    Alignment = taLeftJustify
-    BorderWidth = 5
-    BorderStyle = bsSingle
-    Caption = 'Manuten'#231#227'o de Pedidos'
-    TabOrder = 0
-  end
   object PainelPedido: TPanel
-    Left = 0
-    Top = 108
-    Width = 744
-    Height = 302
+    AlignWithMargins = True
+    Left = 5
+    Top = 84
+    Width = 734
+    Height = 293
+    Margins.Left = 5
+    Margins.Top = 5
+    Margins.Right = 5
+    Margins.Bottom = 5
     Align = alClient
     BorderWidth = 5
-    BorderStyle = bsSingle
-    TabOrder = 1
+    Color = clSilver
+    ParentBackground = False
+    TabOrder = 0
+    ExplicitLeft = 24
+    ExplicitTop = 161
+    ExplicitWidth = 744
+    ExplicitHeight = 302
     object Label1: TLabel
       Left = 9
       Top = 15
@@ -52,22 +55,6 @@ object frmViewPedido: TfrmViewPedido
       Width = 77
       Height = 16
       Caption = 'Data Emiss'#227'o'
-    end
-    object Label4: TLabel
-      Left = 518
-      Top = 268
-      Width = 128
-      Height = 16
-      Caption = 'Valor Total do Pedido:'
-    end
-    object lblTotalPedido: TLabel
-      Left = 652
-      Top = 268
-      Width = 68
-      Height = 16
-      Alignment = taRightJustify
-      AutoSize = False
-      Caption = '0,00'
     end
     object Label7: TLabel
       Left = 9
@@ -205,42 +192,64 @@ object frmViewPedido: TfrmViewPedido
       OnClick = btnCancelarClick
     end
   end
-  object Panel3: TPanel
-    Left = 0
-    Top = 41
-    Width = 744
-    Height = 67
+  object Rodape: TStatusBar
+    AlignWithMargins = True
+    Left = 5
+    Top = 387
+    Width = 734
+    Height = 29
+    Margins.Left = 5
+    Margins.Top = 5
+    Margins.Right = 5
+    Margins.Bottom = 5
+    Panels = <
+      item
+        Alignment = taRightJustify
+        Text = 'Valor Total do Pedido: R$ 0,00'
+        Width = 200
+      end>
+    ExplicitLeft = 0
+    ExplicitTop = 381
+    ExplicitWidth = 744
+  end
+  object Panel1: TPanel
+    AlignWithMargins = True
+    Left = 3
+    Top = 3
+    Width = 738
+    Height = 73
     Align = alTop
-    Alignment = taLeftJustify
-    BorderWidth = 5
-    BorderStyle = bsSingle
+    BevelOuter = bvNone
+    Color = clCream
+    ParentBackground = False
     TabOrder = 2
-    object btnCancelarPedido: TButton
-      Left = 222
-      Top = 19
+    ExplicitTop = 80
+    object btnInserirPedido: TButton
+      Left = 73
+      Top = 15
       Width = 144
-      Height = 25
+      Height = 44
+      Caption = 'Inserir Pedido'
+      TabOrder = 0
+      OnClick = btnInserirPedidoClick
+    end
+    object btnCancelarPedido: TButton
+      Left = 275
+      Top = 15
+      Width = 144
+      Height = 44
       Caption = 'Cancelar Pedido'
       TabOrder = 1
       OnClick = btnCancelarPedidoClick
     end
     object btnRecuperarPedido: TButton
-      Left = 422
-      Top = 19
+      Left = 478
+      Top = 15
       Width = 144
-      Height = 25
+      Height = 44
       Caption = 'Recuperar Pedido'
       TabOrder = 2
       OnClick = btnRecuperarPedidoClick
-    end
-    object btnInserirPedido: TButton
-      Left = 17
-      Top = 19
-      Width = 144
-      Height = 25
-      Caption = 'Inserir Pedido'
-      TabOrder = 0
-      OnClick = btnInserirPedidoClick
     end
   end
 end
