@@ -12,15 +12,13 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-
     property Pedido: TPedido read FPedido write FPedido;
     property ItemPedido: TItemPedido read FItemPedido write FItemPedido;
-
     function Inserir: boolean;
     function Excluir: boolean;
     function Atualizar: boolean;
     function getLastError: string;
-    function FindOne(CodigoPedido: integer): boolean;
+    function FindOne(const CodigoPedido: integer): boolean;
   end;
 
 implementation
@@ -50,7 +48,7 @@ begin
   result := FPedido.Excluir;
 end;
 
-function TControllerPedido.FindOne(CodigoPedido: integer): boolean;
+function TControllerPedido.FindOne(const CodigoPedido: integer): boolean;
 begin
   result := FPedido.FindOne(CodigoPedido);
 end;

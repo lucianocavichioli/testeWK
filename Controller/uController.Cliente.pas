@@ -10,7 +10,7 @@ type
     FCliente: TCliente;
   public
     property Cliente: TCliente read FCliente write FCliente;
-    function FindOne(CodigoCliente: integer): boolean;
+    function FindOne(const CodigoCliente: integer): boolean;
     constructor Create;
     destructor Destroy; override;
   end;
@@ -30,7 +30,7 @@ begin
   inherited;
 end;
 
-function TControllerCliente.FindOne(CodigoCliente: integer): boolean;
+function TControllerCliente.FindOne(const CodigoCliente: integer): boolean;
 begin
   Result := Cliente.FindOne(CodigoCliente);
 end;

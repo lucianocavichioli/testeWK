@@ -26,9 +26,6 @@ implementation
 
 {TDAOConexao}
 
-var
-  instanciaConexao: TDAOConexao;
-
 constructor TDAOConexao.Create;
 begin
   FDPhysMySQLDriverLink := TFDPhysMySQLDriverLink.Create(nil);

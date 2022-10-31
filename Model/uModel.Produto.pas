@@ -13,11 +13,10 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-
     property Codigo: Integer read FCodigo write FCodigo;
     property Descricao: String read FDescricao write FDescricao;
     property Preco: double read FPreco write FPreco;
-    function FindOne(CodigoProduto: Integer): boolean;
+    function FindOne(const CodigoProduto: Integer): boolean;
   end;
 
 implementation
@@ -34,7 +33,7 @@ begin
   inherited;
 end;
 
-function TProduto.FindOne(CodigoProduto: Integer): boolean;
+function TProduto.FindOne(const CodigoProduto: Integer): boolean;
 var
   Query: TFDQuery;
 begin

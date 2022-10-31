@@ -38,10 +38,6 @@ object frmViewPedido: TfrmViewPedido
     Color = clSilver
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = 24
-    ExplicitTop = 161
-    ExplicitWidth = 744
-    ExplicitHeight = 302
     object Label1: TLabel
       Left = 9
       Top = 15
@@ -208,9 +204,6 @@ object frmViewPedido: TfrmViewPedido
         Text = 'Valor Total do Pedido: R$ 0,00'
         Width = 200
       end>
-    ExplicitLeft = 0
-    ExplicitTop = 381
-    ExplicitWidth = 744
   end
   object Panel1: TPanel
     AlignWithMargins = True
@@ -223,7 +216,6 @@ object frmViewPedido: TfrmViewPedido
     Color = clCream
     ParentBackground = False
     TabOrder = 2
-    ExplicitTop = 80
     object btnInserirPedido: TButton
       Left = 73
       Top = 15

@@ -10,7 +10,7 @@ type
     FProduto: TProduto;
   public
     property Produto: TProduto read FProduto write FProduto;
-    function FindOne(CodigoProduto: integer): boolean;
+    function FindOne(const CodigoProduto: integer): boolean;
     constructor Create;
     destructor Destroy; override;
   end;
@@ -30,7 +30,7 @@ begin
   inherited;
 end;
 
-function TControllerProduto.FindOne(CodigoProduto: integer): boolean;
+function TControllerProduto.FindOne(const CodigoProduto: integer): boolean;
 begin
   Result := FProduto.FindOne(CodigoProduto);
 end;

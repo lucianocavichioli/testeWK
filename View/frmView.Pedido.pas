@@ -4,10 +4,11 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, uController.Produto,
+  System.Classes, Vcl.Graphics, uController.Produto, System.UITypes,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask,
   Vcl.Buttons, uController.Conexao, Vcl.Grids, uController.Pedido,
-  uModel.ItemPedido, Vcl.ComCtrls;
+  uModel.ItemPedido, Vcl.ComCtrls, uController.TotalPedido,
+  uObserver.TotalPedidos;
 
 type
   TipoEStado = (teBrowser, teInsert, teEdit);
@@ -51,8 +52,8 @@ type
   private
     ControllerPedidos: TControllerPedido;
     ControllerProduto: TControllerProduto;
-    ValorTotalPedido: double;
-    ValorInicialProduto: double;
+    ControllerTotalPedido: TControllerTotalPedido;
+    ObservadorTotalPedido: TObservadorTotalPedido;
     EstadoAtual: TipoEStado;
     procedure limparDados;
     procedure inserirNoGrid(Codigo: Integer; Descricao: String;
@@ -82,15 +83,19 @@ implementation
 
 procedure TfrmViewPedido.FormCreate(Sender: TObject);
 begin
-  TrocarEstado(teBrowser);
   ControllerPedidos := TControllerPedido.Create;
   ControllerProduto := TControllerProduto.Create;
+  ControllerTotalPedido := TControllerTotalPedido.Create;
+  ObservadorTotalPedido := TObservadorTotalPedido.Create(Rodape.Panels[0]);
+  ControllerTotalPedido.AdicionarObserver(ObservadorTotalPedido);
+  TrocarEstado(teBrowser);
 end;
 
 procedure TfrmViewPedido.FormDestroy(Sender: TObject);
 begin
   ControllerPedidos.Free;
   ControllerProduto.Free;
+  ControllerTotalPedido.Free;
 end;
 
 procedure TfrmViewPedido.btnCancelarClick(Sender: TObject);
@@ -134,8 +139,7 @@ begin
   if edtData.Text = '' then
     raise Exception.Create('Informe uma Data de Emissão.');
 
-  GetLocaleFormatSettings(0, Formato);
-
+  Formato := TFormatSettings.Create();
   Formato.ShortDateFormat := 'dd/mm/yyyy';
   Formato.DateSeparator := '/';
   DataInicial := StrToDate('31/12/1999', Formato);
@@ -275,9 +279,7 @@ begin
   gridProdutos.Cells[cgValorTotal, gridProdutos.Row] :=
     FloatToStr(Quantidade * ValorUnitario);
 
-  ValorTotalPedido := ValorTotalPedido - ValorInicialProduto + Quantidade *
-    ValorUnitario;
-  Rodape.Panels[0].Text := FormatFloat('Valor Total do Pedido: R$ #,##0.00', ValorTotalPedido);
+  ControllerTotalPedido.Adicionar(Quantidade * ValorUnitario);
 
   btnInserirProduto.Caption := 'Inserir Produto';
   btnInserirProduto.OnClick := btnInserirProdutoClick;
@@ -329,8 +331,7 @@ begin
   gridProdutos.Cells[cgValorUnitario, novaLinha] := FloatToStr(ValorUnitario);
   gridProdutos.Cells[cgValorTotal, novaLinha] :=
     FloatToStr(Quantidade * ValorUnitario);
-  ValorTotalPedido := ValorTotalPedido + Quantidade * ValorUnitario;
-  Rodape.Panels[0].Text := FormatFloat('Valor Total do Pedido: R$ #,##0.00', ValorTotalPedido);
+  ControllerTotalPedido.Adicionar(Quantidade * ValorUnitario);
 end;
 
 procedure TfrmViewPedido.gridProdutosDrawCell(Sender: TObject;
@@ -384,13 +385,12 @@ procedure TfrmViewPedido.limparDados;
 begin
   gridProdutos.RowCount := 1;
   gridProdutos.Rows[0].Clear;
-  ValorTotalPedido := 0.00;
   edtCliente.Text := '';
   edtData.Text := '';
   edtProduto.Text := '';
   edtQuantidade.Text := '';
   edtValorUnitario.Text := '';
-  Rodape.Panels[0].Text := '0,00';
+  ControllerTotalPedido.Zerar;
 end;
 
 procedure TfrmViewPedido.TrocarEstado(Estado: TipoEStado);
@@ -421,8 +421,8 @@ begin
   edtQuantidade.Text := gridProdutos.Cells[cgQuantidade, gridProdutos.Row];
   edtValorUnitario.Text := gridProdutos.Cells[cgValorUnitario,
     gridProdutos.Row];
-  ValorInicialProduto := StrToFloat(gridProdutos.Cells[cgValorUnitario,
-    gridProdutos.Row]);
+  ControllerTotalPedido.Subtrair(StrToFloat(gridProdutos.Cells[cgValorUnitario,
+    gridProdutos.Row]));
   btnInserirProduto.Caption := 'Salvar Produto';
   btnInserirProduto.OnClick := btnInserirProdutoAtualizar;
   btnGravarPedido.Enabled := false;
@@ -448,13 +448,12 @@ begin
   begin
     gridProdutos.RowCount := 1;
     gridProdutos.Rows[0].Clear;
-    ValorTotalPedido := 0.00;
+    ControllerTotalPedido.Zerar;
     exit;
   end;
   ValorTotalProduto := StrToFloat(gridProdutos.Cells[cgValorTotal,
     gridProdutos.Row]);
-  ValorTotalPedido := ValorTotalPedido - ValorTotalProduto;
-  Rodape.Panels[0].Text := FormatFloat('Valor Total do Pedido: R$ #,##0.00', ValorTotalPedido);
+  ControllerTotalPedido.Subtrair(ValorTotalProduto);
 
   for i := gridProdutos.Row to gridProdutos.RowCount - 2 do
     gridProdutos.Rows[i] := gridProdutos.Rows[i + 1];

@@ -14,12 +14,11 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-
     property Codigo: Integer read FCodigo write FCodigo;
     property Nome: String read FNome write FNome;
     property Cidade: String read FCidade write FCidade;
     property UF: String read FUF write FUF;
-    function FindOne(CodigoCliente: Integer): boolean;
+    function FindOne(const CodigoCliente: Integer): boolean;
   end;
 
 implementation
@@ -37,7 +36,7 @@ begin
   inherited;
 end;
 
-function TCliente.FindOne(CodigoCliente: Integer): boolean;
+function TCliente.FindOne(const CodigoCliente: Integer): boolean;
 var
   Query: TFDQuery;
 begin

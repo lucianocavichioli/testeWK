@@ -4,7 +4,7 @@ interface
 
 uses uModel.Cliente, uModel.ItemPedido, System.Generics.Collections,
   uController.Conexao, FireDAC.Comp.Client, System.SysUtils,
-  FireDAC.Phys.MySQLWrapper,
+  FireDAC.Phys.MySQLWrapper, FireDAC.Stan.Param,
   uController.Cliente;
 
 type
@@ -20,18 +20,16 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-
     property Numero: Integer read FCodigo write FCodigo;
     property Data: TDate read FData write FData;
     property Cliente: TCliente read FCliente write FCliente;
     property TotalPedido: double read getTotalPedido;
     property Items: TObjectList<TItemPedido> read FItems write FItems;
-
     function Atualizar: boolean;
     function Inserir: boolean;
     function Excluir: boolean;
     function getLastError: string;
-    function FindOne(CodigoPedido: Integer): boolean;
+    function FindOne(const CodigoPedido: Integer): boolean;
   end;
 
 implementation
@@ -145,7 +143,7 @@ begin
   Result := true;
 end;
 
-function TPedido.FindOne(CodigoPedido: Integer): boolean;
+function TPedido.FindOne(const CodigoPedido: Integer): boolean;
 var
   Query: TFDQuery;
   indice: Integer;

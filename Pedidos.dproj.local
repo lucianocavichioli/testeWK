@@ -3,21 +3,21 @@
 	<Transactions>
     <Transaction>2022/08/19 10:33:18.000.140,=C:\RadStudio\Projetos\Unit1.pas</Transaction>
     <Transaction>2022/10/28 10:41:14.000.480,=C:\RadStudio\Projetos\Unit1.pas</Transaction>
-    <Transaction>2022/10/28 10:52:21.000.825,C:\RadStudio\Projetos\TesteWK\Unit1.pas=C:\RadStudio\Projetos\Unit1.pas</Transaction>
     <Transaction>2022/10/28 10:52:21.000.825,C:\RadStudio\Projetos\TesteWK\Unit1.dfm=C:\RadStudio\Projetos\Unit1.dfm</Transaction>
+    <Transaction>2022/10/28 10:52:21.000.825,C:\RadStudio\Projetos\TesteWK\Unit1.pas=C:\RadStudio\Projetos\Unit1.pas</Transaction>
     <Transaction>2022/10/28 10:52:56.000.372,C:\RadStudio\Projetos\TesteWK\Project1.dproj=C:\RadStudio\Projetos\Project1.dproj</Transaction>
-    <Transaction>2022/10/28 10:53:17.000.046,C:\RadStudio\Projetos\TesteWK\frmPrincipal1.pas=C:\RadStudio\Projetos\TesteWK\Unit1.pas</Transaction>
     <Transaction>2022/10/28 10:53:17.000.046,C:\RadStudio\Projetos\TesteWK\frmPrincipal1.dfm=C:\RadStudio\Projetos\TesteWK\Unit1.dfm</Transaction>
+    <Transaction>2022/10/28 10:53:17.000.046,C:\RadStudio\Projetos\TesteWK\frmPrincipal1.pas=C:\RadStudio\Projetos\TesteWK\Unit1.pas</Transaction>
     <Transaction>2022/10/28 10:53:58.000.187,=C:\RadStudio\Projetos\TesteWK\Unit1.pas</Transaction>
-    <Transaction>2022/10/28 10:54:16.000.250,C:\RadStudio\Projetos\TesteWK\DM1.pas=C:\RadStudio\Projetos\TesteWK\Unit1.pas</Transaction>
     <Transaction>2022/10/28 10:54:16.000.250,C:\RadStudio\Projetos\TesteWK\DM1.dfm=C:\RadStudio\Projetos\TesteWK\Unit1.dfm</Transaction>
+    <Transaction>2022/10/28 10:54:16.000.250,C:\RadStudio\Projetos\TesteWK\DM1.pas=C:\RadStudio\Projetos\TesteWK\Unit1.pas</Transaction>
     <Transaction>2022/10/28 13:42:22.000.569,C:\RadStudio\Projetos\TesteWK\frmPrincipal1.pas=C:\RadStudio\Projetos\TesteWK\View\Pedidos.View.Principal.pas</Transaction>
     <Transaction>2022/10/28 13:42:22.000.569,C:\RadStudio\Projetos\TesteWK\frmPrincipal1.dfm=C:\RadStudio\Projetos\TesteWK\View\Pedidos.View.Principal.dfm</Transaction>
     <Transaction>2022/10/28 13:43:49.000.547,C:\RadStudio\Projetos\TesteWK\DM1.pas=C:\RadStudio\Projetos\TesteWK\Model\Pedidos.Model.Dados.pas</Transaction>
     <Transaction>2022/10/28 13:43:49.000.547,C:\RadStudio\Projetos\TesteWK\DM1.dfm=C:\RadStudio\Projetos\TesteWK\Model\Pedidos.Model.Dados.dfm</Transaction>
     <Transaction>2022/10/28 13:44:41.000.815,C:\RadStudio\Projetos\TesteWK\Project1.dproj=C:\RadStudio\Projetos\TesteWK\Pedidos.dproj</Transaction>
-    <Transaction>2022/10/28 14:09:59.000.875,C:\RadStudio\Projetos\TesteWK\Model\Pedidos.Model.Dados.pas=C:\RadStudio\Projetos\TesteWK\Controller\Pedidos.Controller.Dados.pas</Transaction>
     <Transaction>2022/10/28 14:09:59.000.875,C:\RadStudio\Projetos\TesteWK\Model\Pedidos.Model.Dados.dfm=C:\RadStudio\Projetos\TesteWK\Controller\Pedidos.Controller.Dados.dfm</Transaction>
+    <Transaction>2022/10/28 14:09:59.000.875,C:\RadStudio\Projetos\TesteWK\Model\Pedidos.Model.Dados.pas=C:\RadStudio\Projetos\TesteWK\Controller\Pedidos.Controller.Dados.pas</Transaction>
     <Transaction>2022/10/28 14:13:24.000.951,=C:\RadStudio\Projetos\TesteWK\Unit1.pas</Transaction>
     <Transaction>2022/10/28 14:17:53.000.233,C:\RadStudio\Projetos\TesteWK\Unit1.pas=C:\RadStudio\Projetos\TesteWK\Pedidos.eInterface.Model.Pedido.pas</Transaction>
     <Transaction>2022/10/28 14:21:59.000.630,C:\RadStudio\Projetos\TesteWK\Pedidos.eInterface.Model.Pedido.pas=C:\RadStudio\Projetos\TesteWK\Pedidos._Interface.Model.Pedido.pas</Transaction>
@@ -51,5 +51,13 @@
     <Transaction>2022/10/30 14:45:27.000.326,=C:\RadStudio\Projetos\TesteWK\Controller\uController.Produto.pas</Transaction>
     <Transaction>2022/10/30 15:04:54.000.708,C:\RadStudio\Projetos\TesteWK\Model\uModel.ItemPedido.pas=C:\RadStudio\Projetos\TesteWK\Model\uModel.Produto.pas</Transaction>
     <Transaction>2022/10/30 15:10:04.000.888,=C:\RadStudio\Projetos\TesteWK\Model\uModel.Produto.pas</Transaction>
+    <Transaction>2022/10/31 15:59:13.000.306,=C:\RadStudio\Projetos\TesteWK\Unit1.pas</Transaction>
+    <Transaction>2022/10/31 15:59:56.000.903,C:\RadStudio\Projetos\TesteWK\Unit1.pas=C:\RadStudio\Projetos\TesteWK\Controller\uController.TotalPedido.pas</Transaction>
+    <Transaction>2022/10/31 16:27:22.293,=C:\RadStudio\Projetos\TesteWK\Unit1.pas</Transaction>
+    <Transaction>2022/10/31 16:28:42.535,C:\RadStudio\Projetos\TesteWK\Controller\uInterface.Subject.TotalPedidos.pas=C:\RadStudio\Projetos\TesteWK\Unit1.pas</Transaction>
+    <Transaction>2022/10/31 16:35:34.026,C:\RadStudio\Projetos\TesteWK\Controller\uInterface.Observer.TotalPedidos.pas=C:\RadStudio\Projetos\TesteWK\Controller\uInterface.Subject.TotalPedidos.pas</Transaction>
+    <Transaction>2022/10/31 16:39:51.548,=C:\RadStudio\Projetos\TesteWK\Controller\uInterface.Subject.TotalPedidos.pas</Transaction>
+    <Transaction>2022/10/31 17:04:05.645,=C:\RadStudio\Projetos\TesteWK\Unit1.pas</Transaction>
+    <Transaction>2022/10/31 17:07:34.862,C:\RadStudio\Projetos\TesteWK\View\uObserver.TotalPedidos.pas=C:\RadStudio\Projetos\TesteWK\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

@@ -11,7 +11,11 @@ uses
   uController.Pedido in 'Controller\uController.Pedido.pas',
   uDAO.Conexao in 'DAO\uDAO.Conexao.pas',
   uController.Produto in 'Controller\uController.Produto.pas',
-  uModel.Produto in 'Model\uModel.Produto.pas';
+  uModel.Produto in 'Model\uModel.Produto.pas',
+  uController.TotalPedido in 'Controller\uController.TotalPedido.pas',
+  uInterface.Observer.TotalPedidos in 'Controller\uInterface.Observer.TotalPedidos.pas',
+  uInterface.Subject.TotalPedidos in 'Controller\uInterface.Subject.TotalPedidos.pas',
+  uObserver.TotalPedidos in 'View\uObserver.TotalPedidos.pas';
 
 {$R *.res}
 
